@@ -1,0 +1,2 @@
+import {bindings} from '../../../lib/server';
+export async function GET(_:Request,{params}:{params:Promise<{id:string}>}){const {id}=await params;const f=await bindings().BUCKET.get(id);if(!f)return new Response('Not found',{status:404});return new Response(f.body,{headers:{'Content-Type':f.httpMetadata?.contentType||'application/octet-stream','Cache-Control':'public,max-age=31536000,immutable','X-Content-Type-Options':'nosniff'}});}
